@@ -15,7 +15,7 @@ RUN yum install -y ca-certificates wget
 #RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 ENV DOCKER_CHANNEL stable
-ENV DOCKER_VERSION 19.03.3
+ENV DOCKER_VERSION 19.03.6
 
 RUN set -eux; \
 	\
