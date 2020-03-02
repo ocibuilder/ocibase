@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  # push_container pushes ocibase to the ocibuilder/ocibase docker registry
+  push_container:
+    docker:
+      - image: docker:19.03.6-dind
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Run Docker Build
+          command: |
+            export OCI_TAG=$(cat ./VERSION)
+            echo $OCI_TAG
+            docker build -t ocibuilder/ocibase:$OCI_TAG ./base/slim
+      - run:
+          name: Run Docker Push
+          command: |
+            export OCI_TAG=$(cat ./VERSION)
+            echo $OCI_TAG
+            docker login -u $DOCKERHUB_USER -p $DOCKERHUB_TOKEN
+            docker push ocibuilder/ocibase:$OCI_TAG
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - push_container:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              # only recognise tags with semantic versioning e.g. 0.1.0
+              only: /^\d+\.\d+\.\d+.*$/
