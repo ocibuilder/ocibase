@@ -13,6 +13,7 @@ jobs:
             export OCI_TAG=$(cat ./base/slim/VERSION)
             echo $OCI_TAG
             docker build -t ocibuilder/ocibase:$OCI_TAG ./base/slim
+            docker tag ocibuilder/ocibase:$OCI_TAG ocibuilder/ocibase:latest
       - run:
           name: Run Docker Push
           command: |
@@ -20,6 +21,7 @@ jobs:
             echo $OCI_TAG
             docker login -u $DOCKERHUB_USER -p $DOCKERHUB_TOKEN
             docker push ocibuilder/ocibase:$OCI_TAG
+            docker push ocibuilder/ocibase:latest
 
 workflows:
   version: 2
