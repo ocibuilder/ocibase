@@ -1,7 +1,7 @@
 FROM fedora:latest
 
 ENV BUILDAH_VERSION 1.14.0
-RUN yum --showduplicates list httpd | expand
+RUN yum --showduplicates list buildah | expand
 # Buildah Install
 RUN yum -y install buildah-${BUILDAH_VERSION} fuse-overlayfs --exclude container-selinux; rm -rf /var/cache /var/log/dnf* /var/log/yum.*
 
