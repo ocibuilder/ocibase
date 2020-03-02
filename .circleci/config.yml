@@ -10,13 +10,13 @@ jobs:
       - run:
           name: Run Docker Build
           command: |
-            export OCI_TAG=$(cat ./VERSION)
+            export OCI_TAG=$(cat ./base/slim/VERSION)
             echo $OCI_TAG
             docker build -t ocibuilder/ocibase:$OCI_TAG ./base/slim
       - run:
           name: Run Docker Push
           command: |
-            export OCI_TAG=$(cat ./VERSION)
+            export OCI_TAG=$(cat ./base/slim/VERSION)
             echo $OCI_TAG
             docker login -u $DOCKERHUB_USER -p $DOCKERHUB_TOKEN
             docker push ocibuilder/ocibase:$OCI_TAG
