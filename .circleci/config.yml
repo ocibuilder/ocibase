@@ -3,7 +3,7 @@ jobs:
   # push_container pushes ocibase to the ocibuilder/ocibase docker registry
   push_container:
     docker:
-      - image: docker:19.03.7-dind
+      - image: docker:19.03.8-dind
     steps:
       - setup_remote_docker
       - checkout
